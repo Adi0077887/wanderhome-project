@@ -1,0 +1,39 @@
+<% if(success && success.length){ %>
+<div class="alert alert-dismissible fade show col-lg-4 col-md-6 col-sm-8 offset-lg-4 offset-md-3 offset-sm-2 mt-3 mb-3 p-0 border-0" role="alert" style="background: transparent; position: relative; z-index: 1050;">
+    <div class="position-relative overflow-hidden" style="background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%); border-radius: 12px; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1);">
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); backdrop-filter: blur(8px);"></div>
+        <div class="position-relative px-3 py-2 d-flex align-items-center">
+            <div class="d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; backdrop-filter: blur(8px);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/>
+                </svg>
+            </div>
+            <div class="flex-grow-1 text-white">
+                <div class="fw-semibold" style="font-size: 0.9rem; text-shadow: 0 1px 2px rgba(0,0,0,0.1);"><%= success %></div>
+            </div>
+            <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="alert" aria-label="Close" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); font-size: 0.8rem;"></button>
+        </div>
+        <div class="position-absolute bottom-0 start-0 w-100" style="height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.6) 100%);"></div>
+    </div>
+</div>
+<% } %>
+
+<% if(error && error.length){ %>
+<div class="alert alert-dismissible fade show col-lg-4 col-md-6 col-sm-8 offset-lg-4 offset-md-3 offset-sm-2 mt-3 mb-3 p-0 border-0" role="alert" style="background: transparent; position: relative; z-index: 1050;">
+    <div class="position-relative overflow-hidden" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%); border-radius: 12px; box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1);">
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); backdrop-filter: blur(8px);"></div>
+        <div class="position-relative px-3 py-2 d-flex align-items-center">
+            <div class="d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; backdrop-filter: blur(8px);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="white"/>
+                </svg>
+            </div>
+            <div class="flex-grow-1 text-white">
+                <div class="fw-semibold" style="font-size: 0.9rem; text-shadow: 0 1px 2px rgba(0,0,0,0.1);"><%= error %></div>
+            </div>
+            <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="alert" aria-label="Close" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); font-size: 0.8rem;"></button>
+        </div>
+        <div class="position-absolute bottom-0 start-0 w-100" style="height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.6) 100%);"></div>
+    </div>
+</div>
+<% } %>

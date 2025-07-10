@@ -1,0 +1,80 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+  }
+
+  .signup-card {
+    border: 1px solid #dee2e6;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+  }
+
+  .signup-title {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #212529;
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+  }
+
+  .btn-signup {
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #fe424d;
+    color: white;
+    font-weight: 500;
+  }
+
+  .btn-signup:hover {
+    background-color: #dc3545;
+  }
+
+  .alt-link {
+    text-align: center;
+    margin-top: 1rem;
+  }
+</style>
+
+<div class="signup-container">
+  <div class="signup-card">
+    <h2 class="signup-title">Sign Up on <span class="text-danger">WanderHome</span></h2>
+
+    <form action="/signup" method="post" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input name="username" type="text" class="form-control" id="username" required/>
+        <div class="invalid-feedback">Please enter your username</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input name="email" type="email" class="form-control" id="email" required/>
+        <div class="invalid-feedback">Please enter a valid email</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input name="password" type="password" class="form-control" id="password" required/>
+        <div class="invalid-feedback">Please enter a password</div>
+      </div>
+
+      <button class="btn btn-signup mt-2">Create Account</button>
+    </form>
+
+    <div class="alt-link">
+      Already have an account? <a href="/login" class="text-danger fw-semibold">Login</a>
+    </div>
+  </div>
+</div>

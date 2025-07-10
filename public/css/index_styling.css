@@ -1,0 +1,325 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+  }
+
+  /* Main container */
+  .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* Enhanced filters section */
+  #filters-row {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    flex: 1;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent;
+    text-align: center;
+    min-width: 80px;
+    opacity: 0.7;
+  }
+
+  .filter:hover {
+    background: rgba(255, 56, 92, 0.1);
+    border-color: rgba(255, 56, 92, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(255, 56, 92, 0.2);
+    opacity: 1;
+  }
+
+  .filter.active {
+    background: linear-gradient(135deg, #ff385c, #ff6b8a);
+    color: white;
+    border-color: #ff385c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 56, 92, 0.4);
+    opacity: 1;
+  }
+
+  .filter i {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .filter:hover i {
+    transform: scale(1.1);
+  }
+
+  .filter p {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  /* Enhanced toggle switch */
+  .tax-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+
+  .tax-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+
+  .form-check-input {
+    width: 50px !important;
+    height: 24px !important;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 12px !important;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none !important;
+  }
+
+  .form-check-input:checked {
+    background: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .form-check-input::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-check-input:checked::before {
+    transform: translateX(26px);
+  }
+
+  .form-check-label {
+    color: white !important;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Enhanced listings grid */
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .col {
+    display: contents;
+  }
+
+  /* Simplified listing cards - removed popup effects */
+  .listing-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .listing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: none; /* Removed scale animation */
+  }
+
+  /* Removed card-img-overlay effects */
+  .card-img-overlay {
+    display: none;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    line-height: 1.3;
+  }
+
+  .card-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff385c;
+    margin-bottom: 0.5rem;
+    flex: 1;
+  }
+
+  .tax-info {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 400;
+    transition: all 0.3s ease;
+  }
+
+  /* Link styling */
+  .text-decoration-none {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .text-decoration-none:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .main-container {
+      padding: 1rem;
+    }
+
+    #filters-row {
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .filter-group {
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .filter {
+      min-width: 70px;
+      padding: 0.75rem;
+    }
+
+    .filter i {
+      font-size: 1.2rem;
+    }
+
+    .filter p {
+      font-size: 0.75rem;
+    }
+
+    .row {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .tax-toggle {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filter-group {
+      grid-template-columns: repeat(4, 1fr);
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .filter {
+      min-width: auto;
+      padding: 0.5rem;
+    }
+
+    .card-img-top {
+      height: 200px;
+    }
+  }
+
+  /* Loading animation for images */
+  .card-img-top {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus states for accessibility */
+  .filter:focus,
+  .tax-toggle:focus,
+  .form-check-input:focus {
+    outline: 2px solid #ff385c;
+    outline-offset: 2px;
+  }
+

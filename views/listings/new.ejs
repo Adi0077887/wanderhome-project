@@ -1,0 +1,236 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="create-container">
+    <div class="create-header">
+        <h3>Create New Listing</h3>
+        <div class="subtitle">Share your amazing space with the world</div>
+    </div>
+    
+    <div class="form-section">
+        <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title" class="form-label">
+                    📝 Title
+                    <span class="required-badge">Required</span>
+                </label>
+                <input 
+                    name="listing[title]" 
+                    placeholder="Enter an amazing title for your listing" 
+                    class="form-control" 
+                    type="text" 
+                    id="title" 
+                    required
+                >
+                <div class="invalid-feedback">
+                    Please provide a valid title.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="form-label">
+                    📄 Description
+                    <span class="required-badge">Required</span>
+                </label>
+                <textarea 
+                    name="listing[description]" 
+                    placeholder="Describe your space in detail - what makes it special?" 
+                    class="form-control" 
+                    id="description" 
+                    required
+                ></textarea>
+                <div class="invalid-feedback">
+                    Please provide a valid description.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image" class="form-label">
+                    🖼️ Upload Image
+                    <span class="required-badge">Required</span>
+                </label>
+                <div class="image-upload-area" onclick="document.getElementById('image').click()">
+                    <div class="upload-text">Click to upload or drag and drop your image here</div>
+                    <div style="font-size: 0.8rem; color: #a0aec0; margin-top: 0.5rem;">
+                        Supports JPG, PNG, GIF (Max 5MB)
+                    </div>
+                </div>
+                <input 
+                    name="listing[image]" 
+                    class="form-control" 
+                    type="file" 
+                    id="image" 
+                    accept="image/*"
+                    required
+                    style="display: none;"
+                >
+                <div class="invalid-feedback">
+                    Please provide a valid image.
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="price" class="form-label">
+                        💰 Price
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <div class="price-input">
+                        <input 
+                            name="listing[price]" 
+                            placeholder="1200" 
+                            class="form-control" 
+                            type="number" 
+                            id="price" 
+                            required
+                            min="0"
+                        >
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a valid price.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="country" class="form-label">
+                        🌍 Country
+                        <span class="required-badge">Required</span>
+                    </label>
+                    <input 
+                        name="listing[country]" 
+                        placeholder="India" 
+                        class="form-control" 
+                        type="text" 
+                        id="country" 
+                        required
+                    >
+                    <div class="invalid-feedback">
+                        Please provide a valid country.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="location" class="form-label">
+                    📍 Location
+                    <span class="required-badge">Required</span>
+                </label>
+                <input 
+                    name="listing[location]" 
+                    placeholder="Jaipur, Rajasthan" 
+                    class="form-control" 
+                    type="text" 
+                    id="location" 
+                    required
+                >
+                <div class="invalid-feedback">
+                    Please provide a valid location.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn-submit" type="submit">
+                    ✨ Create Listing
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('.form-control');
+    const submitBtn = document.querySelector('.btn-submit');
+    
+    // Focus effects
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('focused');
+      });
+    });
+    
+    // File input preview and handling
+    const fileInput = document.querySelector('input[type="file"]');
+    const uploadArea = document.querySelector('.image-upload-area');
+    
+    if (fileInput && uploadArea) {
+      fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          uploadArea.style.borderColor = 'var(--success-color)';
+          uploadArea.style.background = 'rgba(72, 187, 120, 0.05)';
+          uploadArea.innerHTML = `
+            <div style="color: var(--success-color); font-weight: 600;">
+              ✅ ${file.name} selected
+            </div>
+            <div style="font-size: 0.8rem; color: #a0aec0; margin-top: 0.5rem;">
+              Click to change image
+            </div>
+          `;
+        }
+      });
+      
+      // Drag and drop functionality
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.borderColor = 'var(--primary-color)';
+        this.style.background = 'rgba(102, 126, 234, 0.1)';
+      });
+      
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.borderColor = 'var(--border-color)';
+        this.style.background = '#fafafa';
+      });
+      
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          fileInput.files = files;
+          fileInput.dispatchEvent(new Event('change'));
+        }
+      });
+    }
+    
+    // Form submission with loading state
+    form.addEventListener('submit', function() {
+      submitBtn.classList.add('loading');
+      submitBtn.innerHTML = 'Creating...';
+    });
+    
+    // Input validation styling
+    inputs.forEach(input => {
+      input.addEventListener('invalid', function() {
+        this.classList.add('is-invalid');
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.validity.valid) {
+          this.classList.remove('is-invalid');
+        }
+      });
+    });
+    
+    // Smooth animations on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    });
+    
+    document.querySelectorAll('.form-group').forEach(group => {
+      group.style.opacity = '0';
+      group.style.transform = 'translateY(20px)';
+      group.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(group);
+    });
+  });
+</script>

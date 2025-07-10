@@ -1,0 +1,165 @@
+<% layout("/layouts/boilerplate") %>
+
+<link rel="stylesheet" href="/css/show_styling.css">
+
+<!-- Add Mapbox GL JS -->
+<link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+
+<script>
+  const mapToken = "<%= mapToken %>";
+  const coordinates = <%- JSON.stringify(listing.geometry?.coordinates || [77.1025, 28.7041]) %>;
+</script>
+
+
+<div class="hero-section">
+  <div class="container">
+    <div class="text-center">
+      <h1 class="display-4 fw-bold mb-0"><%= listing.title %></h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Main Listing Card -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+      <div class="info-card">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <img src="<%= listing.image.url %>" 
+                 class="listing-image w-100" 
+                 style="height: 350px; object-fit: cover;" 
+                 alt="<%= listing.title %>" />
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <div class="owner-badge">
+              <i class="fa-solid fa-crown me-2"></i>
+              Hosted by <%= listing.owner.username %>
+            </div>
+            
+            <p class="fs-5 text-muted mb-3"><%= listing.description %></p>
+            
+            <div class="price-badge mb-3">
+              <i class="fa-solid fa-rupee-sign me-1"></i>
+              <%= listing.price.toLocaleString("en-IN") %>
+              <span class="fs-6 opacity-75">/ night</span>
+            </div>
+            
+            <div class="location-info">
+              <div class="location-icon">
+                <i class="fa-solid fa-map-marker-alt text-danger"></i>
+              </div>
+              <span><%= listing.location %></span>
+            </div>
+            
+            <div class="location-info">
+              <div class="location-icon">
+                <i class="fa-solid fa-globe text-primary"></i>
+              </div>
+              <span><%= listing.country %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if (currUser && listing.owner && listing.owner._id.toString() === currUser._id.toString()) { %>
+  <!-- Edit/Delete Buttons -->
+  <div class="action-buttons">
+    <a href="/listings/<%= listing._id %>/edit" class="btn btn-modern btn-edit">
+      <i class="fa-solid fa-edit me-2"></i>Edit Listing
+    </a>
+    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
+      <button type="submit" class="btn btn-modern btn-delete">
+        <i class="fa-solid fa-trash me-2"></i>Delete Listing
+      </button>
+    </form>
+  </div>
+  <% } %>
+
+  <% if (currUser) { %>
+  <!-- Leave Review Section -->
+  <div class="review-section">
+    <h3 class="section-title">Share Your Experience</h3>
+    <div class="review-form">
+      <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="starability-slot mb-4">
+              <legend class="fw-semibold mb-3">Rate your stay:</legend>
+              <% for(let i = 1; i <= 5; i++) { %>
+                <input type="radio" id="rate<%= i %>" name="review[rating]" value="<%= i %>" required />
+                <label for="rate<%= i %>" title="<%= ['Terrible', 'Not good', 'Average', 'Very good', 'Amazing'][i-1] %>"><%= i %> star</label>
+              <% } %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="comment" class="form-label fw-semibold">Your Review</label>
+              <textarea name="review[comment]" id="comment" rows="4" class="form-control" 
+                        placeholder="Share your thoughts about this place..." required></textarea>
+              <div class="invalid-feedback">Please add a valid comment.</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <button type="submit" class="btn btn-modern" style="background: linear-gradient(45deg, #343a40, #212529); color: white;">
+            <i class="fa-solid fa-paper-plane me-2"></i>Submit Review
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- All Reviews -->
+  <% if (listing.reviews && listing.reviews.length > 0) { %>
+  <div class="mb-5">
+    <h3 class="section-title">Guest Reviews</h3>
+    <div class="row gy-4">
+      <% for (let review of listing.reviews) { %>
+      <div class="col-md-6">
+        <div class="review-card h-100">
+          <div class="d-flex align-items-center mb-3">
+            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                 style="width: 40px; height: 40px;">
+              <i class="fa-solid fa-user text-white"></i>
+            </div>
+            <div>
+              <h6 class="mb-1 fw-semibold">@<%= review.author ? review.author.username : "Anonymous" %></h6>
+              <p class="starability-result mb-0" data-rating="<%= review.rating %>"></p>
+            </div>
+          </div>
+          
+          <p class="text-muted mb-3"><%= review.comment %></p>
+          
+          <% if (currUser && review.author && review.author._id.toString() === currUser._id.toString()) { %>
+          <div class="text-end">
+            <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="d-inline">
+              <button class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                <i class="fa-solid fa-trash me-1"></i>Delete
+              </button>
+            </form>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- Map Section -->
+  <div class="mb-5">
+    <h3 class="section-title">Location</h3>
+    <p class="text-muted mb-3">Discover the perfect spot for your next adventure</p>
+    <div class="map-container">
+      <div id="map" style="height: 400px;"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/map.js"></script>
