@@ -1,4 +1,4 @@
-🩺 Health Tracker
+#🩺 Health Tracker
 A full-stack web application that allows you to log and visualize daily health metrics like calories, sleep, workouts, heart rate, and steps.
 
 What It Does
